@@ -1,9 +1,7 @@
 import Head from 'next/head';
 import { useState } from 'react';
 
-
 const Home = () => {
-  const [userInput, setUserInput] = useState('');
   const [isGenerating, setIsGenerating] = useState(false);
   const [apiOutput, setApiOutput] = useState('');
   const [level, setLevel] = useState('beginner');
@@ -25,15 +23,27 @@ const Home = () => {
   const callGenerateEndpoint = async () => {
     setIsGenerating(true);
     console.log('Calling OPENAI API...');
-    // NextJS automatically creates this route for us based on the file name
 
     try {
-      const response = await fetch('/api/generate', {
+
+      const userInput = await fetch('api/getUserInput', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({level, equipment, goals}),
+      });
+
+      const promptData = await userInput.json();
+      let prompt = promptData.output;
+      console.log(prompt);
+
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({prompt}),
       });
       const data = await response.json();
       const {output} = data;
@@ -49,6 +59,7 @@ const Home = () => {
       <Head>
         <title>StreetFit</title>
       </Head>
+
       <div className="container">
         <div className="header">
           <div className="header-title">
@@ -59,6 +70,7 @@ const Home = () => {
             <h2>Enter Your Goals and Preferences to Get a Customized Street Workout Plan Tailored Just for You 🫵</h2>
           </div>
         </div>
+
         <div className='prompt-container'>
           <label>Select your current Level</label>
           <select name="level" id="level" onChange={onLevelChanged}>
@@ -79,6 +91,7 @@ const Home = () => {
             value={goals}
             onChange={onGoalsChanged}/>
         </div>
+        
         <div className="prompt-buttons">
           <a
             className={isGenerating ? 'generate-button loading' : 'generate-button'}
@@ -89,19 +102,39 @@ const Home = () => {
             </div>
           </a>
         </div>
-          <div className="output">
-            <div className="output-header-container">
-              <div className="output-header">
-                <h3>Your workout 👇</h3>
-              </div>
-            </div>
-            <div className="output-content">
-              <p>{apiOutput}</p>
+        
+        <div className="output">
+          <div className="output-header-container">
+            <div className="output-header">
+              <h3>Your workout 👇</h3>
             </div>
           </div>
+          <div className="output-content">
+            <p>{apiOutput}</p>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
+function RadioButtons({title}) {
+  return (
+    <div className='radioContainer'>
+      <label>{title}</label>
+      <div style={{display:'flex'}}>
+        <label>
+          Yes:
+          <input type="radio" value="yes" name="yesno" className='one_radio'/>
+        </label>
+        <br />
+        <label>
+          No:
+          <input type="radio" value="no" name="yesno" className='one_radio' />
+        </label>
+      </div>
+    </div>
+  );
+}
 
 export default Home;

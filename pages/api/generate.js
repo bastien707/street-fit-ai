@@ -6,18 +6,11 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-let basePromptPrefix = "Could you generate a calisthenic workout based on the following parameters\n My fitness level: ";
-
 const generateAction = async (req, res) => {
-    basePromptPrefix += req.body.level += ".\n";
-    basePromptPrefix += "My equipment: ";
-    basePromptPrefix += req.body.equipment + ".\n";
-    basePromptPrefix += "My goals: ";
-    basePromptPrefix += req.body.goals + ".\n";
-    basePromptPrefix += "Divide the answer into 3 parts: warmup, main workout, and cooldown.";
+
     const baseCompletion = await openai.createCompletion({
         model: "text-davinci-003",
-        prompt: `${basePromptPrefix}\n`,
+        prompt: `${req.body.prompt}\n`,
         temperature: 0.7,
         max_tokens: 2048,
       });

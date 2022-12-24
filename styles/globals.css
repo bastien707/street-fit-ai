@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&display=swap');
 
+:root {
+  --primary-glow: #FF4F12;
+}
+
 body {
+  scroll-behavior: smooth;
     margin: 0;
     padding: 0;
     font-family: 'Manrope', sans-serif;
@@ -29,7 +34,7 @@ body {
     height: fit-content;
     max-width: 975px;
     overflow: auto;
-    padding: 50px;
+    padding: 25px;
     position: relative;
     width: auto;
     gap: 64px;
@@ -136,7 +141,6 @@ textarea {
     flex-flow: row nowrap;
     gap: 12px;
     height: min-content;
-    overflow: hidden;
     padding: 0px;
     position: relative;
     width: 100%;
@@ -176,20 +180,26 @@ textarea {
 .generate-button {
     place-content: flex-start;
     align-items: flex-start;
-    background-color: #FF4F12;
+    background: linear-gradient(45deg, #FF4F12 30%, #fff81e 100%);
     border-radius: 100px;
     display: flex;
     flex: 0 0 auto;
     flex-flow: column nowrap;
     gap: 10px;
     height: min-content;
-    overflow: hidden;
     padding: 16px 24px;
     position: relative;
     text-decoration: none;
     width: min-content;
     will-change: transform;
     cursor: pointer;
+    transition: all 0.5s ease 0s;
+}
+
+a.generate-button:hover {
+  background-color: #fff;
+  transition: all 0.5s ease 0s;
+  box-shadow: 0px 0px 10px 0px #FF4F12;
 }
 
 .generate {
@@ -273,6 +283,7 @@ textarea {
 }
 
 .output {
+    position: relative;
     place-content: center flex-start;
     align-items: center;
     display: flex;
@@ -282,8 +293,13 @@ textarea {
     height: min-content;
     max-width: 1200px;
     overflow: hidden;
-    position: relative;
-    width: 100%;
+    background: linear-gradient(45deg, #7b7b7b3f 0%, #0000002e 100%);
+    width: 95%;
+    border-top-left-radius: 2em;
+    border-top-right-radius: 2em;
+    border-bottom: none;
+    border: 1px solid #86868699;
+	  padding-top: 1em;
 }
 
 .output-header-container {
@@ -295,7 +311,7 @@ textarea {
     gap: 16px;
     height: min-content;
     overflow: hidden;
-    padding: 0px;
+    padding: 20px;
     position: relative;
     width: 100%;
 }
@@ -315,6 +331,7 @@ textarea {
 }
 
 .output-content {
+    padding: 5vw;
     outline: none;
     display: flex;
     /* max-width: 25%; */
@@ -327,7 +344,7 @@ textarea {
 .output-content p {
     text-align: center;
     white-space: pre-line;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgb(255, 255, 255);
 }
 
 @media (min-width: 810px) and (max-width: 1199px) {
@@ -392,9 +409,11 @@ textarea {
     .prompt-box {
         width: 100%;
     }
+
+    #level {
+        width: 90%;
+    }
 }
-
-
 
  /* Loading ring animation */
 .loader {
@@ -421,7 +440,6 @@ select {
     line-height: 1.5;
     padding: 0.5em 3.5em 0.5em 1em;
     width: 50%;
-    max-width: 100%;
     margin: 0;
     outline: none;
 }

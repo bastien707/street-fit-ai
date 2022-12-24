@@ -36,7 +36,6 @@ const Home = () => {
 
       const promptData = await userInput.json();
       let prompt = promptData.output;
-      console.log(prompt);
 
       const response = await fetch('/api/generate', {
         method: 'POST',
@@ -67,7 +66,7 @@ const Home = () => {
             <h1> with Our AI-Driven Street Workout Plans</h1>
           </div>
           <div className="header-subtitle">
-            <h2>Enter Your Goals and Preferences to Get a Customized Street Workout Plan Tailored Just for You 🫵</h2>
+            <h2>Enter Your goals and preferences to get a customized street workout plan tailored Just for You 🫵</h2>
           </div>
         </div>
 
@@ -102,19 +101,18 @@ const Home = () => {
             </div>
           </a>
         </div>
-        
-        <div className="output">
-          <div className="output-header-container">
-            <div className="output-header">
-              <h3>Your workout 👇</h3>
-            </div>
-          </div>
-          <div className="output-content">
-            <p>{apiOutput}</p>
+      </div>
+      <div className="output">
+        <div className="output-header-container">
+          <div className="output-header">
+            <h3>Your workout 👇</h3>
           </div>
         </div>
+        <div className="output-content">
+          <p>{apiOutput}</p>
+        </div>
       </div>
-    </div>
+  </div>
   );
 };
 

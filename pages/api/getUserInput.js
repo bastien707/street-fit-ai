@@ -12,7 +12,7 @@ const getUserInput = (req, res) => {
         basePromptPrefix += "I'm an advanced, so I'm very fit. Give me a workout that is difficult in terms of difficulty and intensity.";
     }
 
-    basePromptPrefix += ".\n My equipment: ";
+    basePromptPrefix += "\n My equipment: ";
     basePromptPrefix += req.body.equipment + ".\n My goals: ";
     basePromptPrefix += req.body.goals + ".\n";
     basePromptPrefix += "Your answer must be a list of exercises, with each exercise on a new line. And you can detail the number of reps and sets for each exercise. You must explain why you choose each exercise and why they are answering the goals given. Be like a coach you must give motivations ! \n\n";
